@@ -1,5 +1,3 @@
-import * as THREE from 'three'
-
 const globalColors = {
 
     black: '#1A110B',
@@ -7,6 +5,7 @@ const globalColors = {
     orangeyellow: '#E0B55E',
     reddish: '#8D321F',
     skyblue: '#67A0A6',
+    white: '#ffffff'
 }
 
 export default globalColors

@@ -1,17 +1,22 @@
-import { Environment, OrbitControls, Sky } from "@react-three/drei"
-import { useControls } from "leva"
-import { useThree } from "@react-three/fiber"
 import { useEffect } from "react"
+import { Environment, OrbitControls, Sky, BakeShadows } from "@react-three/drei"
+import { useThree } from "@react-three/fiber"
+import { useControls } from "leva"
+
 import CentralPlaza from "./CentralPlaza/CentralPlaza"
 import globalMaterials from "./globalMaterials"
 import globalColors from "./globalColors"
+import Start from "./Start/Start"
 
 export default function Experience() {
-    const { envMapIntensity } = useControls('environment map', {
-        envMapIntensity: { value: 1, min: 0, max: 12 }
+
+    const { envMapIntensity } = useControls('EnvMap Intensity', {
+
+        envMapIntensity: { value: 1, min: 0, max: 5, step: 0.001 }
     })
 
     const scene = useThree(state => state.scene)
+
     useEffect(() => {
         scene.environmentIntensity = envMapIntensity
     }, [envMapIntensity])
@@ -23,12 +28,12 @@ export default function Experience() {
 
             <OrbitControls makeDefault />
 
-            <Environment preset="sunset"  />
+            <Environment preset="sunset" />
 
             <directionalLight
-                intensity={4.5}
+                intensity={2.5}
                 castShadow
-                position={[4, 4, 4]}
+                position={[10, 10, -10]}
                 shadow-mapSize-width={2048}
                 shadow-mapSize-height={2048}
                 shadow-camera-near={0.5}
@@ -40,7 +45,9 @@ export default function Experience() {
             />
 
             {/* COMPONENTS */}
-            <CentralPlaza />
+            <Start />
+            <CentralPlaza position={[0, 0, 13]}/>
+
         </>
     )
 }

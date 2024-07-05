@@ -1,25 +1,28 @@
-import globalMaterials from "../globalMaterials"
-import DNASpiral from "./DNASpiral"
 import Arc from "./Arc"
+import { Sparkles } from "@react-three/drei"
+import { Physics } from '@react-three/rapier'
 
 
-export default function CentralPlaza() {
+import globalMaterials from "../globalMaterials"
+import Zumbimbi from "./Zumbimbi"
+import Floor from "../Floor"
+
+
+export default function CentralPlaza({ position, rotation }) {
 
     return <>
+        <group position={position} rotation ={rotation}>
 
-        <DNASpiral />
+            <Sparkles position={[0, 10, 0]} scale={20} size={5} noise={10} />
 
-        <Arc />
+            <Arc position={[0, 0, 0]} buildingSequence={[8, 5, 3, 2, 1]} />
 
-        <mesh
-            rotation={[-Math.PI * 0.5, 0, 0]}
-            position={[0, 0, 0]}
-            material={globalMaterials.floorMat}
-            castShadow
-            receiveShadow
-        >
-            <planeGeometry args={[10, 10]} />
-        </mesh>
+            <Zumbimbi></Zumbimbi>
+
+            {/* FLOOR */}
+            <Floor material={globalMaterials.floorMat}/>
+
+        </group>
 
     </>
 }
