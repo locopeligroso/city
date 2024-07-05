@@ -2,11 +2,13 @@ import { useEffect } from "react"
 import { Environment, OrbitControls, Sky, BakeShadows } from "@react-three/drei"
 import { useThree } from "@react-three/fiber"
 import { useControls } from "leva"
+import { CuboidCollider, Physics, RigidBody } from "@react-three/rapier"
 
 import CentralPlaza from "./CentralPlaza/CentralPlaza"
 import globalMaterials from "./globalMaterials"
 import globalColors from "./globalColors"
 import Start from "./Start/Start"
+import Player from "./Player"
 
 export default function Experience() {
 
@@ -45,8 +47,18 @@ export default function Experience() {
             />
 
             {/* COMPONENTS */}
-            <Start />
-            <CentralPlaza position={[0, 0, 13]}/>
+            <Physics debug>
+
+                <Start />
+                <CentralPlaza position={[0, 0, 13]} />
+              
+
+
+
+                <Player />
+
+
+            </Physics>
 
         </>
     )

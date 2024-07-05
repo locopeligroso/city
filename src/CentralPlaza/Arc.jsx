@@ -1,4 +1,5 @@
 import { useGLTF } from "@react-three/drei"
+import { Physics, RigidBody } from "@react-three/rapier"
 
 import globalMaterials from "../globalMaterials"
 
@@ -10,7 +11,7 @@ export default function Arc({
     width = 1.3, // è la larghezza di un BaseArc
     depth = 1.3, // è quanto un BaseArc è profondo
 
-    buildingSequence = [8, 5, 3, 2], // la lunghezza dell'array determina quante colonne ci saranno, il valore determina quanti BaseArc ci sono nella colonna
+    buildingSequence = [8, 5, 3, 2, 1], // la lunghezza dell'array determina quante colonne ci saranno, il valore determina quanti BaseArc ci sono nella colonna
 
     outerMaterial = globalMaterials.brickMat,
     innerMaterial = globalMaterials.emissiveRedMat
@@ -50,15 +51,18 @@ export default function Arc({
 
         </group>
 
-        {/* BASE SOTTOSTANTE */}
-        <mesh
-            castShadow
-            receiveShadow
-            position={[0, 0.15, 0]}
-            material={globalMaterials.metallic.black}
-        >
-            <boxGeometry args={[(buildingSequence.length + 3) * width, 0.3, (buildingSequence.length + 3) * width]} />
-        </mesh>
+        {/* BASE SOTTOSTANTE */}ù
+        <RigidBody type="fixed">
+
+            <mesh
+                castShadow
+                receiveShadow
+                position={[0, 0.15, 0]}
+                material={globalMaterials.metallic.black}
+            >
+                <boxGeometry args={[(buildingSequence.length + 3) * width, 0.3, (buildingSequence.length + 3) * width]} />
+            </mesh>
+        </RigidBody>
 
     </>
 
@@ -143,14 +147,18 @@ export function SingleBuilding({
                 buildingSequence={buildingSequence} />
 
             {/* BASE SOTTOSTANTE */}
-            <mesh
-                castShadow
-                receiveShadow
-                position={[width * 0.5, 0.15, -width * 0.5]}
-                material={baseMaterial}
-            >
-                <boxGeometry args={[(buildingSequence.length * width) + width, 0.3, 2 * width]} />
-            </mesh>
+
+            <RigidBody type=" fixed">
+
+                <mesh
+                    castShadow
+                    receiveShadow
+                    position={[width * 0.5, 0.15, -width * 0.5]}
+                    material={baseMaterial}
+                >
+                    <boxGeometry args={[(buildingSequence.length * width) + width, 0.3, 2 * width]} />
+                </mesh>
+            </RigidBody>
         </group>
     </>
 }

@@ -2,11 +2,12 @@ import * as THREE from 'three'
 import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import globalMaterials from "../globalMaterials"
+import { RigidBody } from '@react-three/rapier'
 
 
 
 
-export default function DNASpiral({ 
+export default function DNASpiral({
     position,
     rotation,
 
@@ -87,11 +88,14 @@ export default function DNASpiral({
                 }
 
                 {/* BASE CIRCOLARE */}
-                <mesh
-                    material={globalMaterials.metallic.blue}
-                >
-                    <cylinderGeometry args={[baseRadius,baseRadius,0.3]}/>
-                </mesh>
+
+                <RigidBody colliders='hull' type='fixed'>
+                    <mesh
+                        material={globalMaterials.metallic.blue}
+                    >
+                        <cylinderGeometry args={[baseRadius, baseRadius, 0.3]} />
+                    </mesh>
+                </RigidBody>
 
             </group>
         </>

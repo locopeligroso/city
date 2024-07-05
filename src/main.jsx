@@ -5,6 +5,8 @@ import { Leva } from 'leva'
 import { Canvas } from '@react-three/fiber'
 import { Perf } from 'r3f-perf'
 import * as THREE from 'three'
+import { KeyboardControls } from '@react-three/drei'
+import { Suspense } from 'react'
 
 
 import './styles.css'
@@ -15,23 +17,40 @@ const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
   <StrictMode>
-    <Leva
-    />
 
-    <Canvas
-      flat
-      camera={{
-        fov: 50,
-        near: 0.1,
-        far: 300,
-        position: [10, 10, 10]
-      }
-      }
-      shadows
+    <Leva />
+
+    <KeyboardControls
+      map={[
+        { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
+        { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
+        { name: 'leftward', keys: ['ArrowLeft', 'KeyA'] },
+        { name: 'rightward', keys: ['ArrowRight', 'KeyD'] },
+        { name: 'jump', keys: ['Space'] },
+      ]}
     >
-      <Perf position='top-left' />
-      <Experience />
+      <Canvas
+        flat
+        camera={{
+          fov: 50,
+          near: 0.1,
+          far: 300,
+          position: [10, 10, 10]
+        }
+        }
+        shadows
+      >
 
-    </Canvas>
+        <Perf position='top-left' />
+
+        <Suspense>
+
+          <Experience />
+        </Suspense>
+
+      </Canvas>
+
+    </KeyboardControls>
+
   </StrictMode>
 )
